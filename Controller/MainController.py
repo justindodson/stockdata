@@ -21,15 +21,34 @@ class MainControllerEXEC:
         self.ui.setupUi(MainWindow)
 
         # call functions to process events
-        self.trigger_seach_button()
         self.trigger_date_change()
         self.trigger_search_bar_used()
         self.trigger_recent_stock_selection()
+        self.trigger_seach_button()
 
 
         # Show MainWindow and execute application
         MainWindow.show()
         sys.exit(app.exec_())
+
+    """
+        -- Signal methods --
+    """
+    def trigger_date_change(self):
+        pass
+
+    def trigger_search_bar_used(self):
+        self.ui.stockSearchBar.textChanged.connect(self.update_recent_combobox)
+
+    def trigger_recent_stock_selection(self):
+        self.ui.recentStocksList.currentTextChanged.connect(self.update_search_bar)
+
+    def trigger_seach_button(self):
+        self.ui.searchButton.clicked.connect(self.perform_search)
+
+    """
+        -- Class Methods --
+    """
 
     def update_recent_stock_list(self):
         """ This method will search the database
@@ -40,20 +59,11 @@ class MainControllerEXEC:
         """
         pass
 
-    def trigger_date_change(self):
-        pass
-
-    def trigger_search_bar_used(self):
-        self.ui.stockSearchBar.textChanged.connect(self.update_recent_combobox)
-
     def update_recent_combobox(self):
         if self.ui.stockSearchBar.text() != '':
             self.ui.recentStocksList.setDisabled(True)
         else:
             self.ui.recentStocksList.setDisabled(False)
-
-    def trigger_recent_stock_selection(self):
-        self.ui.recentStocksList.currentTextChanged.connect(self.update_search_bar)
 
     def update_search_bar(self):
         if self.ui.recentStocksList.currentText() != 'Select Recent':
@@ -63,9 +73,6 @@ class MainControllerEXEC:
         else:
             self.ui.stockSearchBar.setDisabled(False)
             self.ui.searchButton.setDisabled(False)
-
-    def trigger_seach_button(self):
-        self.ui.searchButton.clicked.connect(self.perform_search)
 
     def perform_search(self):
         search_value = self.ui.stockSearchBar.text().upper()
@@ -81,12 +88,6 @@ class MainControllerEXEC:
             self.ui.stockSearchResult.setText("Enter Valid Symbol")
             self.ui.stockSearchResult.repaint()
 
-    def search_for_stock_symbol(self, symbol):
-        pass
-
     def date_selected(self):
         convert_time_to_utc(self.ui.dateSelect.date().toString('yyyy MM dd'))
 
-
-if __name__ == '__main__':
-    mw = MainControllerEXEC()
