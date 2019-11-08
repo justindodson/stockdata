@@ -4,3 +4,6 @@
 /Model/NASDAQ.txt
 /Model/NYSE.sqlite
 /Model/NYSE.txt
+
+/Utils/web_scraper.py
+chromedriver comm
