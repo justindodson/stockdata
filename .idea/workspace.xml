@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3823d16c-b6e6-4cf6-ace8-99f54cf31173" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controller/thread.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/MainController.py" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/MainController.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/dialogs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/dialogs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/MainWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/MainWindow.ui" beforeDir="false" afterPath="$PROJECT_DIR$/View/MainWindow.ui" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,6 +34,7 @@
   </component>
   <component name="ProjectId" id="1TL4axQet3zrV84bNTrWkGk8YQy" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="settings.editor.selected.configurable" value="PyConsoleConfigurable.Python Console" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>

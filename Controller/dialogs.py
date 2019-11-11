@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets
 
 
-def show_connection_dialgo(self):
+def show_connection_dialog(self):
     msg = QtWidgets.QMessageBox()
     msg.setIcon(QtWidgets.QMessageBox.Critical)
 

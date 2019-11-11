@@ -26,7 +26,7 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="4" column="0" colspan="4">
+        <item row="5" column="0" colspan="4">
          <widget class="Line" name="line_3">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -39,10 +39,10 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1" colspan="3">
+        <item row="4" column="1" colspan="3">
          <widget class="QComboBox" name="dateSelect"/>
         </item>
-        <item row="3" column="0">
+        <item row="4" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
            <string>Select Date:</string>
@@ -95,31 +95,6 @@
             <string>Select Recent</string>
            </property>
           </item>
-          <item>
-           <property name="text">
-            <string> alkdfad</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>aerwetsg</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>gjtkut7uryh</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>24353453rtwrfs</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>fasdge5j4th3</string>
-           </property>
-          </item>
          </widget>
         </item>
         <item row="1" column="2">
@@ -149,6 +124,34 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="4">
+         <widget class="QProgressBar" name="stockSearchProgBar">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="textVisible">
+           <bool>true</bool>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="invertedAppearance">
+           <bool>false</bool>
+          </property>
+          <property name="textDirection">
+           <enum>QProgressBar::TopToBottom</enum>
+          </property>
+          <property name="format">
+           <string>%p%</string>
           </property>
          </widget>
         </item>
@@ -182,6 +185,9 @@
        <widget class="QTableWidget" name="stockTable">
         <property name="statusTip">
          <string>Imported Stocks Table</string>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
         </property>
         <property name="sortingEnabled">
          <bool>true</bool>

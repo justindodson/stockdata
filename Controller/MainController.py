@@ -1,11 +1,14 @@
 from Controller.helpers import convert_time_to_utc
-from Controller.dialogs import show_connection_dialgo, show_scrape_error_dialog
+from Controller.dialogs import show_connection_dialog, show_scrape_error_dialog
+from Controller.thread import Thread
 from Model.helpers import search_for_stock_ticker
 from Utils.web_scraper import StockData
 from View.MainWindow import Ui_MainWindow
-
+from pyqtspinner.spinner import WaitingSpinner
 import sys
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore, QtGui
+
+import datetime
 
 
 class MainControllerEXEC:
@@ -15,13 +18,13 @@ class MainControllerEXEC:
         app = QtWidgets.QApplication(sys.argv)
 
         # Create new main_window Instance
-        main_window = QtWidgets.QMainWindow()
+        self.main_window = QtWidgets.QMainWindow()
 
         # Create a ui instance to reference from the View
         # and pass in the main_window as an argument to update the
         # main window remotely
         self.ui = Ui_MainWindow()
-        self.ui.setupUi(main_window)
+        self.ui.setupUi(self.main_window)
 
         self.date_dict = {}
 
@@ -31,9 +34,10 @@ class MainControllerEXEC:
         self.trigger_recent_stock_selection()
         self.trigger_search_button()
         self.trigger_import_date()
+        self.trigger_click_on_cell_row()
 
         # Show main_window and execute application
-        main_window.show()
+        self.main_window.show()
         sys.exit(app.exec_())
 
     """
@@ -55,9 +59,28 @@ class MainControllerEXEC:
     def trigger_import_date(self):
         self.ui.importButton.clicked.connect(self.scrape_stock_data)
 
+    def trigger_click_on_cell_row(self):
+        self.ui.stockTable.clicked.connect(self.table_clicked)
+
     """
         -- Class Methods --
     """
+
+    def table_clicked(self):
+        index = self.ui.stockTable.selectedIndexes()[0]
+        id_us = self.ui.stockTable.model().data(index)
+        row_index = self.ui.stockTable.selectedItems()[0].row()
+
+        menu = QtWidgets.QMenu()
+        save = menu.addAction("Save To Watchlist")
+        delete = menu.addAction("Delete Row")
+        action = menu.exec_(QtGui.QCursor.pos())
+
+        if action == save:
+            self.save_to_watchlist(row_index, id_us)
+        if action == delete:
+            self.delete_row_index(row_index)
+
 
     def update_recent_stock_list(self):
         """ This method will search the database
@@ -110,17 +133,19 @@ class MainControllerEXEC:
             for date in self.date_dict:
                 self.ui.dateSelect.addItem(date)
                 self.ui.dateSelect.repaint()
+
         else:
-            show_connection_dialgo(self)
+            show_connection_dialog(self)
 
     def scrape_stock_data(self):
+        # TODO: disable import button until search button clicked or recent stock is selected
         date = self.date_dict[self.ui.dateSelect.currentText()]
         stock = StockData(self.ui.stockSearchBar.text().upper())
         stock_data = stock.get_call_data(date)
         if stock_data is not None:
             self.populate_data_table(stock_data)
         else:
-            print('Issues HERE')
+            show_connection_dialog()
 
     def populate_data_table(self, stock_data):
         row_number = self.ui.stockTable.rowCount()
@@ -134,3 +159,11 @@ class MainControllerEXEC:
 
         self.ui.stockTable.repaint()
 
+    def save_to_watchlist(self, row_index, company_stock_symbol):
+        self.ui.recentStocksList.addItem(company_stock_symbol)
+        date = datetime.datetime.date(datetime.datetime.now())
+        print(date)
+
+    def delete_row_index(self, row_index):
+        self.ui.stockTable.removeRow(row_index)
+        self.ui.stockTable.repaint()
