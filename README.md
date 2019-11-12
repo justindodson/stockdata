@@ -20,5 +20,4 @@ Some of these features include:
 &nbsp;&nbsp;&nbsp;&nbsp;-> Web Scraping  
 
 ## Aplication Preview
-
-
+<img width="599" alt="Screen Shot 2019-11-12 at 8 56 35 AM" src="https://user-images.githubusercontent.com/40766640/68682792-4d7d2080-052b-11ea-8d08-d16da62d9916.png">
