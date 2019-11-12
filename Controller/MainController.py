@@ -1,12 +1,10 @@
 from Controller.helpers import convert_time_to_utc
-from Controller.dialogs import show_connection_dialog, show_scrape_error_dialog
-from Controller.thread import Thread
+from Controller.dialogs import show_connection_dialog, confirm_delete_dialog, confirm_save_dialog
 from Model.helpers import search_for_stock_ticker
 from Utils.web_scraper import StockData
 from View.MainWindow import Ui_MainWindow
-from pyqtspinner.spinner import WaitingSpinner
 import sys
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5 import QtWidgets, QtGui
 
 import datetime
 
@@ -77,9 +75,13 @@ class MainControllerEXEC:
         action = menu.exec_(QtGui.QCursor.pos())
 
         if action == save:
-            self.save_to_watchlist(row_index, id_us)
+            confirmation = confirm_save_dialog(self)
+            if confirmation == 1:
+                self.save_to_watchlist(row_index, id_us)
         if action == delete:
-            self.delete_row_index(row_index)
+            confirmation = confirm_delete_dialog(self)
+            if confirmation == 1:
+                self.delete_row_index(row_index)
 
 
     def update_recent_stock_list(self):
@@ -90,6 +92,7 @@ class MainControllerEXEC:
             days
         """
         pass
+
 
     def update_recent_combobox(self):
         if self.ui.stockSearchBar.text() != '':
@@ -106,11 +109,13 @@ class MainControllerEXEC:
             self.ui.searchButton.setDisabled(False)
 
     def perform_search(self):
+
         self.ui.dateSelect.clear()
         self.date_dict.clear()
         search_value = self.ui.stockSearchBar.text().upper()
         if search_value != '':
             result = search_for_stock_ticker(search_value)
+
             if result is not None:
                 self.ui.stockSearchResult.setText(result[1])
                 self.ui.stockSearchResult.repaint()
@@ -128,6 +133,10 @@ class MainControllerEXEC:
     def load_date_picker(self, stock_symbol):
         stock = StockData(stock_symbol)
         self.date_dict = stock.get_date_options()
+
+        if not self.date_dict:
+            self.ui.stockSearchResult.setText("No Options Data Available for \'{}\'".format(stock_symbol))
+            self.ui.stockSearchResult.repaint()
 
         if self.date_dict is not None:
             for date in self.date_dict:
