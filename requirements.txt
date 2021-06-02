@@ -67,7 +67,7 @@ tensorflow-estimator==1.14.0
 termcolor==1.1.0
 tf-estimator-nightly==1.14.0.dev2019060501
 Theano==1.0.4
-urllib3==1.24.1
+urllib3==1.26.5
 virtualenv==16.4.3
 webdriver-manager==2.2.0
 Werkzeug==0.15.5
