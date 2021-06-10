@@ -13,7 +13,7 @@ configparser==4.0.2
 crayons==0.3.0
 cycler==0.10.0
 dj-database-url==0.5.0
-Django==2.1.2
+Django==2.2.24
 django-crispy-forms==1.7.2
 django-instagram==0.3.0
 django-multiselectfield==0.1.8
